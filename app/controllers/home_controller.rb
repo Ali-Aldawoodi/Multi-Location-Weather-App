@@ -5,6 +5,9 @@ class HomeController < ApplicationController
     require 'net/http'
     require 'json'
 
+    puts "Enter your city: "
+    name = gets
+     puts "#{name}"
     def fetch_city(name)
         uri = URI("https://geocoding-api.open-meteo.com/v1/search?#{name}=Berlin&count=1&language=en&format=json")  
         res = Net::HTTP.get_response(uri)
@@ -17,5 +20,17 @@ class HomeController < ApplicationController
       puts res.body if res.is_a?(Net::HTTPSuccess)
     end
 
+    def display_weather(city,current_temp, high_temp, low_temp, daily_forecast)
+      puts "Current Weather"
+      puts "Current Temperature: #{current_temp}"
 
+      puts "7-Day Forecast"
+      daily_forecast.each do |day|
+        puts "Date"
+        puts "#{high_temp}"
+        puts "#{low_temp}"
+      end
+    end
+
+    
 end
